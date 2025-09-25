@@ -57,7 +57,7 @@ Open app at: http://localhost:5173
 
 ## Known issues
 
-Right now there's no unit testing, loading spinner and poor UI
+Right now there's no unit testing, loading spinner and minimal UI
 
 ## Production notes
 
