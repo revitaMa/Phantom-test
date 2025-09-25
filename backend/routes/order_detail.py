@@ -3,7 +3,7 @@ import requests
 from flask import Blueprint, request, jsonify
 
 API_BASE = os.getenv("API_BASE")
-TIMEOUT = os.getenv("TIMEOUT")
+TIMEOUT = int(os.getenv("TIMEOUT"))
 
 order_detail_bp = Blueprint("order_detail", __name__)
 

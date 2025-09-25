@@ -23,13 +23,16 @@ Open powershell window. Run in project root:
 ```powershell
 cd backend
 python -m venv .venv
-# for windows:
 .\.venv\Scripts\Activate.ps1
+# if throws execution error, run:
+# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+# try again activate
 pip install -r requirements.txt
-Copy -Item .env.example .env
+Copy-Item .env.example .env
 # Notice that .env should be encoded as UTF-8
-flask run
-# Make sure flask is running on port 5000
+
+cd ..
+flask --app backend.app run --port 5000
 ```
 
 ### frontend setup
@@ -37,7 +40,7 @@ flask run
 open new powershell window.
 Run in project root:
 
-```
+```powershell
 cd frontend
 npm install
 npm run dev

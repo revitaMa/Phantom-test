@@ -3,7 +3,7 @@ from flask import request, jsonify, Blueprint
 import requests  # for upstream API
 
 API_BASE = os.getenv("API_BASE")
-TIMEOUT = os.getenv("TIMEOUT")
+TIMEOUT = int(os.getenv("TIMEOUT"))
 
 auth_bp = Blueprint("authBP", __name__)
 
@@ -28,7 +28,6 @@ def login():
     except Exception:
         return jsonify({"error": "internal server error"}), 500
 
-    # Pass-through errors (401/400...) with upstream body if JSON
     ctype = upstream.headers.get("content-type", "")
     if not upstream.ok:
         if "application/json" in ctype:
