@@ -1,9 +1,9 @@
 import os
-from backend.utils.api_client import session
+from utils.api_client import curr_session
 from flask import Blueprint, request, jsonify
 
 API_BASE = os.getenv("API_BASE")
-TIMEOUT = int(os.getenv("TIMEOUT"))
+TIMEOUT = float(os.getenv("TIMEOUT"))
 
 order_detail_bp = Blueprint("order_detail", __name__)
 
@@ -16,15 +16,13 @@ def order_detail(order_id):
         return jsonify({"error": "unauthorized"}), 401
 
     try:
-        r = session.get(
+        r = curr_session.get(
             f"{API_BASE}/dev_test/item/{order_id}",
             params={"token": token},
             timeout=TIMEOUT,
         )
-    except session.Timeout:
-        return jsonify({"error": "upstream timeout"}), 504
-    except Exception:
-        return jsonify({"error": "internal server error"}), 500
+    except Exception as e:
+        return jsonify({"error": "unexpected error"}), 502
 
     ctype = r.headers.get("content-type", "")
     if "application/json" in ctype:

@@ -1,14 +1,13 @@
 import os
 from flask import request, jsonify, Blueprint
-from backend.utils.api_client import session
+from utils.api_client import curr_session
 
 API_BASE = os.getenv("API_BASE")
-TIMEOUT = int(os.getenv("TIMEOUT"))
+TIMEOUT = float(os.getenv("TIMEOUT"))
 
 auth_bp = Blueprint("authBP", __name__)
 
 
-# Login: forward to upstream, set HttpOnly cookie with the token
 @auth_bp.post("/dev_test/token")
 def login():
     body = request.get_json(silent=True) or {}
@@ -20,22 +19,20 @@ def login():
 
     try:
         url = f"{API_BASE}/dev_test/token"
-        upstream = session.post(
+        r = curr_session.post(
             url, json={"username": username, "password": password}, timeout=TIMEOUT
         )
-    except session.Timeout:
-        return jsonify({"error": "upstream timeout"}), 504
-    except Exception:
-        return jsonify({"error": "internal server error"}), 500
+    except Exception as e:
+        return jsonify({"error": "unexpected error"}), 502
 
-    ctype = upstream.headers.get("content-type", "")
-    if not upstream.ok:
+    ctype = r.headers.get("content-type", "")
+    if not r.ok:
         if "application/json" in ctype:
-            return jsonify(upstream.json()), upstream.status_code
-        return upstream.text, upstream.status_code, {"Content-Type": ctype}
+            return jsonify(r.json()), r.status_code
+        return r.text, r.status_code, {"Content-Type": ctype}
 
     # On success, set the token cookie (HttpOnly) and return ok
-    data = upstream.json() if "application/json" in ctype else {}
+    data = r.json() if "application/json" in ctype else {}
     token = data.get("token")
     if not token:
         return jsonify({"error": "missing token in upstream response"}), 502

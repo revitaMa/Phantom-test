@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 # Load environment (ensure backend/.env is UTF-8)
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), ".env"))
 
-from backend.routes.auth import auth_bp
-from backend.routes.orders import orders_bp
-from backend.routes.order_detail import order_detail_bp
+from routes.auth import auth_bp
+from routes.orders import orders_bp
+from routes.order_detail import order_detail_bp
 
 
 app = Flask(__name__)

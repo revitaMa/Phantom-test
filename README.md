@@ -30,9 +30,7 @@ python -m venv .venv
 pip install -r requirements.txt
 Copy-Item .env.example .env
 # Notice that .env should be encoded as UTF-8
-
-cd ..
-flask --app backend.app run --port 5000
+flask run --port 5000
 ```
 
 ### frontend setup
@@ -43,6 +41,9 @@ Run in project root:
 ```powershell
 cd frontend
 npm install
+# if throws execution error, run:
+# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+# try again to install
 npm run dev
 ```
 

@@ -8,7 +8,7 @@ def create_session():
     retries = Retry(
         total=3,
         backoff_factor=0.3,
-        status_forcelist=[504],
+        status_forcelist=[502, 503, 504],
         allowed_methods=frozenset({"GET", "POST"}),
     )
     adapter = HTTPAdapter(max_retries=retries)
@@ -17,4 +17,4 @@ def create_session():
     return curr_session
 
 
-session = create_session()
+curr_session = create_session()
