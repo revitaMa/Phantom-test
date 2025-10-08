@@ -80,6 +80,7 @@ const backdrop = {
 };
 const modal = {
   background: "white",
+  color: "black",
   borderRadius: 12,
   padding: 16,
   width: "min(800px, 96vw)",

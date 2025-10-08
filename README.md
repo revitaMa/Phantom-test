@@ -26,11 +26,12 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 # if throws execution error, run:
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-# try again activate
+# then run again activate:
+# .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 Copy-Item .env.example .env
 # Notice that .env should be encoded as UTF-8
-flask run --port 5000
+flask run --port 5050
 ```
 
 ### frontend setup
@@ -43,18 +44,20 @@ cd frontend
 npm install
 # if throws execution error, run:
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-# try again to install
+# then run again:
+# npm install
+
 npm run dev
 ```
 
-## Environment variables
+### Environment variables
 
 Make sure backend/.env was created and encoded to UTF-8.
 It should look the same as .env.example
 
-## Running program
+### Running program locally
 
-Open app at: http://localhost:5173
+After running setup, open app at: http://localhost:5173
 
 ## Known issues
 
