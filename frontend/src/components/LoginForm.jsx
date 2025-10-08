@@ -3,8 +3,8 @@ import { useAuth } from "../hooks/useAuth.js";
 
 export default function LoginForm() {
   const { login } = useAuth();
-  const [username, setU] = useState("");
-  const [password, setP] = useState("");
+  const [username, setUser] = useState("");
+  const [password, setPass] = useState("");
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
 
@@ -40,7 +40,7 @@ export default function LoginForm() {
         <input
           placeholder="Enter your username"
           value={username}
-          onChange={(e) => setU(e.target.value)}
+          onChange={(e) => setUser(e.target.value)}
           autoComplete="username"
         />
       </label>
@@ -51,7 +51,7 @@ export default function LoginForm() {
           placeholder="Enter your password"
           type="password"
           value={password}
-          onChange={(e) => setP(e.target.value)}
+          onChange={(e) => setPass(e.target.value)}
           autoComplete="current-password"
         />
       </label>

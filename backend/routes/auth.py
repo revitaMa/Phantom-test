@@ -1,6 +1,6 @@
 import os
 from flask import request, jsonify, Blueprint
-import requests  # for upstream API
+from backend.utils.api_client import session
 
 API_BASE = os.getenv("API_BASE")
 TIMEOUT = int(os.getenv("TIMEOUT"))
@@ -20,10 +20,10 @@ def login():
 
     try:
         url = f"{API_BASE}/dev_test/token"
-        upstream = requests.post(
+        upstream = session.post(
             url, json={"username": username, "password": password}, timeout=TIMEOUT
         )
-    except requests.Timeout:
+    except session.Timeout:
         return jsonify({"error": "upstream timeout"}), 504
     except Exception:
         return jsonify({"error": "internal server error"}), 500
