@@ -18,6 +18,7 @@ Architecture: React client calss Flask backend via api. The backend talks to an 
 
 ### backend setup
 
+For Windows:
 Open powershell window. Run in project root:
 
 ```powershell
@@ -34,9 +35,22 @@ Copy-Item .env.example .env
 flask run --port 5050
 ```
 
+For MAC:
+Open Terminal. Run from project root:
+
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+flask run --port 5050
+# If 'flask' is not found, use: python3 -m flask run --port 5050
+```
+
 ### frontend setup
 
-open new powershell window.
+Open new powershell window.
 Run in project root:
 
 ```powershell
